@@ -4,6 +4,13 @@ from Matrix.linkedListMatrix import LinkedListMatrix
 class MainMatrix:
     def __init__(self, rows, columns):
         self.rows = LinkedListMatrix()
+        if rows < 0:
+            return
+        if columns < 0:
+            return
+        rows = 3600 if rows > 3600 else rows
+        columns = 130 if columns > 130 else columns
+
         self.r = rows
         self.c = columns
         for i in range(1, rows + 1):
@@ -23,6 +30,7 @@ class MainMatrix:
             # print(current_row.time)
             print(" ")
             current_row = current_row.next_node
+        print(" ")
 
     def update(self, row, column, new_v):
         if row > self.r or column > self.c:
