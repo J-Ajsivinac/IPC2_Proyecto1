@@ -8,6 +8,7 @@ class LinkedListMatrix:
     def is_empty(self):
         return self.first is None
 
+    # inserta valores a la lista
     def insert(self, row, value):
         new_value = Node(row, value)
         if self.first is None:
@@ -18,6 +19,7 @@ class LinkedListMatrix:
             current = current.next_node
         current.next_node = new_value
 
+    # muestara los valores actuales en consola
     def display(self):
         current = self.first
         while current:
@@ -25,6 +27,7 @@ class LinkedListMatrix:
             current = current.next_node
         print()
 
+    # se encarga de cambiar el valor de un elemento según la columna que se le pase
     def update_value(self, column, new_value):
         current = self.first
         while current:
@@ -33,6 +36,7 @@ class LinkedListMatrix:
                 break
             current = current.next_node
 
+    # regresa la matriz binaria necesaria para agrupar
     def binary(self, size):
         original = self.first
         clone = LinkedListMatrix()

@@ -19,7 +19,7 @@ class Menu:
             if option == "1":
                 self.load_xml()
             elif option == "2":
-                pass
+                self.procces_file()
             elif option == "3":
                 pass
             elif option == "4":
@@ -78,10 +78,20 @@ class Menu:
             " ╚════════════════════════════════════════════════════════════════════════╝\n"
         )
 
+    def titles(self, title):
+        print()
+        print(" ╔═══════════════════════════════════════════════════════╗")
+        print(" ║", end="")
+        print(" %-53s" % title, end="")
+        print(" ║")
+        print(" ╚═══════════════════════════════════════════════════════╝\n")
+
     def load_xml(self):
         self.titles(" Cargar Archivo")
         url = input(" 📂 Ingrese la ruta del Archivo: ")
         name, extension = os.path.splitext(url)
+        # verificación de que la ruta sea válida
+        # No cadena vacia o elementos distintos a los .xml
         if url == "" or extension != ".xml":
             print(" ")
             Alert("error", "Ingrese una ruta válida")
@@ -91,7 +101,11 @@ class Menu:
         read = Read()
         read.read_file(url)
         self.signals: LinkedList = read.load_data()
-        self.imprimir()
+        self.show_signals()
+
+    def procces_file(self):
+        matrix_m = self.signals.get_minim()
+        matrix_m.print_e()
 
     def show_student_data(self):
         self.titles(" Datos del Alumno")
@@ -101,13 +115,5 @@ class Menu:
         print("\t  🖥 🖥 🖥💻Ingenieria en Ciencias y Sistemas")
         print("\t 📆 4to Semestre")
 
-    def titles(self, title):
-        print()
-        print(" ╔═══════════════════════════════════════════════════════╗")
-        print(" ║", end="")
-        print(" %-53s" % title, end="")
-        print(" ║")
-        print(" ╚═══════════════════════════════════════════════════════╝\n")
-
-    def imprimir(self):
+    def show_signals(self):
         self.signals.print_e()

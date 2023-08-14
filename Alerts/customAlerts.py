@@ -4,6 +4,8 @@ class Alert:
         self.message = message
         self.show_message()
 
+    # Función para mostrar un mensaje en terminal con colores, dependiendo de los mensajes que se envien
+    # Tipos de mensajes: éxito, advertencia, error y procesamiento
     def show_message(self):
         temp_type = ""
         temp_message = ""

@@ -6,17 +6,21 @@ from Alerts.customAlerts import Alert
 
 class Read:
     def read_file(self, route):
+        # lectura del XML
         self.tree = ET.parse(route)
         self.root = self.tree.getroot()
-        # print(self.root.tag)
 
     def load_data(self):
         all_data = LinkedList()
+        # recorre todo el arcivo y obtiene los elementos con la etiqueta senal
         for frecuency in self.root.findall("senal"):
             name_temp = frecuency.get("nombre")
+            # creación de una matriz según lo indique el archivo XML
+            # la matriz inicialmente es de solo ceros
             matrix_temp = MainMatrix(int(frecuency.get("t")), int(frecuency.get("A")))
-            # verify =
-            # print(name_temp)
+
+            # verificación de nombres duplicados, si existen nombres duplicados
+            # se sobreescriben
             if all_data.verify_dup(name_temp, matrix_temp):
                 Alert(
                     "advertencia",
@@ -24,10 +28,10 @@ class Read:
                 )
                 Alert("procesando", f"Sustituyendo: {name_temp}")
             else:
+                # si no hay repetición se agrega con normalidad
                 all_data.insert(name_temp, matrix_temp)
-                # print(".")
+            # se recorre los elementos de la etiqueta senal, para cambiar los valores ceros iniciales
             for data in frecuency.findall("dato"):
-                # print(data.text)
                 matrix_temp.update(
                     int(data.get("t")), int(data.get("A")), int(data.text)
                 )
