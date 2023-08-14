@@ -1,6 +1,5 @@
 class Node:
-    def __init__(self, time=None, amplitude=None, value=None, next_node=None):
-        self.time = time
-        self.amplitude = amplitude
+    def __init__(self, index=None, value=None, next_node=None):
+        self.index = index
         self.value = value
         self.next_node = next_node

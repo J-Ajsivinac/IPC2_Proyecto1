@@ -1,5 +1,4 @@
 from Nodes.nodePrincipal import Node
-from Matrix.mainMatrix import MainMatrix
 
 
 class LinkedList:

@@ -8,8 +8,8 @@ class LinkedListMatrix:
     def is_empty(self):
         return self.first is None
 
-    def insert(self, row, column, value):
-        new_value = Node(row, column, value)
+    def insert(self, row, value):
+        new_value = Node(row, value)
         if self.first is None:
             self.first = new_value
             return
@@ -28,18 +28,18 @@ class LinkedListMatrix:
     def update_value(self, column, new_value):
         current = self.first
         while current:
-            if current.time == column:
+            if current.index == column:
                 current.value = new_value
                 break
             current = current.next_node
 
-    def clone(self, size):
+    def binary(self, size):
         original = self.first
         clone = LinkedListMatrix()
         for i in range(1, 1 + size):
             if original.value != 0:
-                clone.insert(i, 0, 1)
+                clone.insert(i, 1)
             else:
-                clone.insert(i, 0, 0)
+                clone.insert(i, 0)
             original = original.next_node
         return clone

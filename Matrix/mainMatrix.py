@@ -17,8 +17,8 @@ class MainMatrix:
             row = LinkedListMatrix()
             # print(i)
             for j in range(1, columns + 1):
-                row.insert(j, 0, 0)
-            self.rows.insert(i, 0, row)
+                row.insert(j, 0)
+            self.rows.insert(i, row)
 
     def create(self, d_matrix):
         self.rows = d_matrix
@@ -46,12 +46,12 @@ class MainMatrix:
         current_row.value.update_value(column, new_v)  # un row
 
     def m_patrons(self):
-        matrix_clone = LinkedListMatrix()
+        matrix_b = LinkedListMatrix()
         current_row = self.rows.first
         for i in range(1, self.r + 1):
-            clone_row = current_row.value.clone(self.c)
-            matrix_clone.insert(i, 0, clone_row)
+            clone_row = current_row.value.binary(self.c)
+            matrix_b.insert(i, clone_row)
             current_row = current_row.next_node
         ret = MainMatrix()
-        ret.create(matrix_clone)
+        ret.create(matrix_b)
         return ret
