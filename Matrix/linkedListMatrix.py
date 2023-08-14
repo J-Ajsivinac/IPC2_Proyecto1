@@ -32,3 +32,14 @@ class LinkedListMatrix:
                 current.value = new_value
                 break
             current = current.next_node
+
+    def clone(self, size):
+        original = self.first
+        clone = LinkedListMatrix()
+        for i in range(1, 1 + size):
+            if original.value != 0:
+                clone.insert(i, 0, 1)
+            else:
+                clone.insert(i, 0, 0)
+            original = original.next_node
+        return clone
