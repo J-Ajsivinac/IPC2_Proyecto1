@@ -1,4 +1,5 @@
 from Matrix.linkedListMatrix import LinkedListMatrix
+from Alerts.customAlerts import Alert
 
 
 # clase que se encarga del manejo de la matriz
@@ -7,12 +8,8 @@ class MainMatrix:
     # si es para la creación de la matriz binaria no se pasan los parametros
     def __init__(self, rows=0, columns=0):
         self.rows = LinkedListMatrix()
-        if rows < 0:
-            return
-        if columns < 0:
-            return
-        rows = 3600 if rows > 3600 else rows
-        columns = 130 if columns > 130 else columns
+        rows = 3600 if rows >= 3600 else rows
+        columns = 130 if columns >= 130 else columns
         self.r = rows
         self.c = columns
         for i in range(1, rows + 1):
@@ -45,7 +42,7 @@ class MainMatrix:
 
     # cambia los valores iniciales (0) por los valores que estan en el archivo de entrada
     def update(self, row, column, new_v):
-        if row > self.r or column > self.c:
+        if row > self.r or column > self.c or row <= 0 or column <= 0:
             return
         # se obtiene la primera fila
         current_row = self.rows.first
@@ -65,8 +62,8 @@ class MainMatrix:
             # se inserta el valor de la fila a la matriz
             matrix_b.insert(i, clone_row)
             current_row = current_row.next_node
-        # ret contiene a la matriz que es una lista
-        ret = MainMatrix()
+        # ret contiene a la matriz que es una lista sin propiedades de mainMatrix
+        matrix_ret = MainMatrix()
         # crea la matriz para que pueda usar los metodos de mainMatrix
-        ret.create(matrix_b)
-        return ret
+        matrix_ret.create(matrix_b)
+        return matrix_ret

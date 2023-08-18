@@ -24,6 +24,7 @@ class LinkedList:
         current = self.first
         while current:
             current.matrix.display_matrix(current.name)
+            # print(current.matrix.r, current.matrix.c)
             current = current.next_n
 
     # verifica si el nombre de la señal esta duplicado

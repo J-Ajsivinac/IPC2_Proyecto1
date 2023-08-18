@@ -11,7 +11,7 @@ class LinkedListMatrix:
     # inserta valores a la lista
     def insert(self, row, value):
         new_value = Node(row, value)
-        if self.first is None:
+        if self.is_empty():
             self.first = new_value
             return
         current = self.first

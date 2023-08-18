@@ -19,7 +19,7 @@ class Menu:
             if option == "1":
                 self.load_xml()
             elif option == "2":
-                self.procces_file()
+                pass
             elif option == "3":
                 pass
             elif option == "4":
@@ -29,6 +29,7 @@ class Menu:
             elif option == "6":
                 pass
             elif option == "7":
+                Alert("exito", "Cierre de Sesión")
                 break
             else:
                 Alert("error", "Opción Inválida")
@@ -98,10 +99,17 @@ class Menu:
             return
         print()
         url = url.replace("\\", "/")
+        if not os.path.exists(url):
+            print(" ")
+            Alert(
+                "error",
+                f"No se encontro ningún archivo con el nombre {os.path.basename(url)}",
+            )
+            return
         read = Read()
         read.read_file(url)
-        self.signals: LinkedList = read.load_data()
-        self.show_signals()
+        read.load_data(self.signals)
+        # self.show_signals()
 
     def procces_file(self):
         matrix_m = self.signals.get_minim()
