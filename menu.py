@@ -1,12 +1,12 @@
 from Alerts.customAlerts import Alert
 from read_files import Read
-from Nodes.linkedListP import LinkedList
+from Nodes.linkedListP import LinkedListPrincipal
 import os
 
 
 class Menu:
     def __init__(self):
-        self.signals = LinkedList()
+        self.signals = LinkedListPrincipal()
 
     def menu(self):
         while True:
@@ -19,7 +19,7 @@ class Menu:
             if option == "1":
                 self.load_xml()
             elif option == "2":
-                pass
+                self.procces_file()
             elif option == "3":
                 pass
             elif option == "4":
@@ -113,14 +113,15 @@ class Menu:
 
     def procces_file(self):
         matrix_m = self.signals.get_minim()
-        matrix_m.print_e()
+        # matrix_m.print_e()
+        matrix_m.proces_all_m()
 
     def show_student_data(self):
         self.titles(" Datos del Alumno")
         print("\t 🙍‍♂️ Joab Israel Ajsivinac Ajsivinac")
-        print("\t  💳 💳 💳🆔202200135")
+        print("\t 🆔 202200135")
         print('\t 📚 Introducción a la Programación y computación 2 Sección "N"')
-        print("\t  🖥 🖥 🖥💻Ingenieria en Ciencias y Sistemas")
+        print("\t 💻 Ingenieria en Ciencias y Sistemas")
         print("\t 📆 4to Semestre")
 
     def show_signals(self):

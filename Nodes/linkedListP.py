@@ -1,7 +1,9 @@
 from Nodes.nodePrincipal import Node
+from Matrix.mainMatrix import MainMatrix
+from Alerts.customAlerts import Alert
 
 
-class LinkedList:
+class LinkedListPrincipal:
     def __init__(self):
         self.first = None
         self.size = 0
@@ -65,9 +67,10 @@ class LinkedList:
     def get_minim(self):
         if self.first is None:
             return None
-        cloned_list = LinkedList()
+        cloned_list = LinkedListPrincipal()
         current_data = self.first
         while current_data:
+            Alert("procesando", f"Calculando la matriz binaria de: {current_data.name}")
             current_matrix = current_data.matrix
             # llamada a la función m_patrons() para obtener la matriz con 1 y 0
             matrix_temp = current_matrix.m_patrons()
@@ -75,3 +78,12 @@ class LinkedList:
             cloned_list.insert(current_data.name, matrix_temp)
             current_data = current_data.next_n
         return cloned_list
+        # self.proces_all_m(cloned_list)
+
+    def proces_all_m(self):
+        current = self.first
+        while current:
+            Alert("procesando", f"Realizando suma de tuplas de: {current.name}")
+            current_matrix: MainMatrix = current.matrix
+            current_matrix.group_similar()
+            current = current.next_n

@@ -24,7 +24,9 @@ class MainMatrix:
 
     # crea una matriz que tenga las propiedades de mainMatrix
     # pasando como parametro la matriz base
-    def create(self, d_matrix):
+    def create(self, d_matrix, rows, columns):
+        self.r = rows
+        self.c = columns
         self.rows = d_matrix
 
     def display_matrix(self, name):
@@ -65,5 +67,43 @@ class MainMatrix:
         # ret contiene a la matriz que es una lista sin propiedades de mainMatrix
         matrix_ret = MainMatrix()
         # crea la matriz para que pueda usar los metodos de mainMatrix
-        matrix_ret.create(matrix_b)
+        matrix_ret.create(matrix_b, self.r, self.c)
         return matrix_ret
+        # self.group_similar(matrix_b=)
+
+    def group_similar(self):
+        current_row = self.rows.first
+        matrix_reduce = LinkedListMatrix()
+
+        for i in range(1, self.r + 1):
+            if not current_row:
+                continue
+            comp_row = current_row.next_node
+            row_temp = current_row.value.return_row()
+            groups = f"{i}"
+
+            for _ in range(i + 1, self.r + 1):
+                if not current_row or not comp_row:
+                    continue
+
+                temp = None
+
+                if current_row.value == comp_row.value:
+                    groups += f",{comp_row.index}"
+                    temp = comp_row.next_node
+                    self.rows.delete_row(comp_row.index)
+
+                if not comp_row.next_node:
+                    comp_row = temp
+                else:
+                    comp_row = comp_row.next_node
+
+            matrix_reduce.insert(groups, row_temp)
+            temp2 = current_row.next_node
+            self.rows.delete_row(current_row.index)
+            current_row = temp2
+
+        matrix_ret = MainMatrix()
+        matrix_ret.create(matrix_reduce, self.r, self.c)
+        # matrix_ret.display_matrix("x")
+        # return matrix_reduce

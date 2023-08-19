@@ -4,6 +4,7 @@ from Matrix.nodeMatrix import Node
 class LinkedListMatrix:
     def __init__(self):
         self.first = None
+        self.size = 0
 
     def is_empty(self):
         return self.first is None
@@ -13,11 +14,30 @@ class LinkedListMatrix:
         new_value = Node(row, value)
         if self.is_empty():
             self.first = new_value
+            self.size += 1
             return
         current = self.first
         while current.next_node:
             current = current.next_node
         current.next_node = new_value
+        self.size += 1
+
+    def delete_row(self, index):
+        current = self.first
+        last = None
+
+        while current and current.index != index:
+            last = current
+            current = current.next_node
+
+        if not last:
+            self.first = current.next_node
+            current.next_node = None
+            self.size -= 1
+        elif current:
+            last.next_node = current.next_node
+            current.next_node = None
+            self.size -= 1
 
     # muestara los valores actuales en consola
     def display(self):
@@ -47,3 +67,21 @@ class LinkedListMatrix:
                 clone.insert(i, 0)
             original = original.next_node
         return clone
+
+    def __eq__(self, value_comp):
+        current = self.first
+        current_value_comp = value_comp.first
+        while current:
+            if current.value != current_value_comp.value:
+                return False
+            current = current.next_node
+            current_value_comp = current_value_comp.next_node
+        return True
+
+    def return_row(self):
+        current = self.first
+        row_copy = LinkedListMatrix()
+        while current:
+            row_copy.insert(current.index, current.value)
+            current = current.next_node
+        return row_copy
