@@ -1,5 +1,6 @@
 from Matrix.linkedListMatrix import LinkedListMatrix
 from Alerts.customAlerts import Alert
+from Matrix.likedListReduce import LinkedListReduce
 
 
 # clase que se encarga del manejo de la matriz
@@ -73,15 +74,15 @@ class MainMatrix:
 
     def group_similar(self):
         current_row = self.rows.first
-        matrix_reduce = LinkedListMatrix()
+        matrix_reduce = LinkedListReduce()
 
         for i in range(1, self.r + 1):
             if not current_row:
                 continue
             comp_row = current_row.next_node
             row_temp = current_row.value.return_row()
-            groups = f"{i}"
-
+            times = f"{i}"
+            name_group = f"g={i}"
             for _ in range(i + 1, self.r + 1):
                 if not current_row or not comp_row:
                     continue
@@ -89,7 +90,7 @@ class MainMatrix:
                 temp = None
 
                 if current_row.value == comp_row.value:
-                    groups += f",{comp_row.index}"
+                    times += f",{comp_row.index}"
                     temp = comp_row.next_node
                     self.rows.delete_row(comp_row.index)
 
@@ -98,12 +99,12 @@ class MainMatrix:
                 else:
                     comp_row = comp_row.next_node
 
-            matrix_reduce.insert(groups, row_temp)
+            matrix_reduce.insert(name_group, times, row_temp)
             temp2 = current_row.next_node
             self.rows.delete_row(current_row.index)
             current_row = temp2
 
         matrix_ret = MainMatrix()
         matrix_ret.create(matrix_reduce, self.r, self.c)
-        # matrix_ret.display_matrix("x")
-        # return matrix_reduce
+
+        return matrix_ret

@@ -64,7 +64,7 @@ class LinkedListPrincipal:
             return True
 
     # retorna la matriz binaria de todos las señales de audio existentes
-    def get_minim(self):
+    def get_binary(self):
         if self.first is None:
             return None
         cloned_list = LinkedListPrincipal()
@@ -80,10 +80,12 @@ class LinkedListPrincipal:
         return cloned_list
         # self.proces_all_m(cloned_list)
 
-    def proces_all_m(self):
+    def create_groups(self):
         current = self.first
+        signals_reduce = LinkedListPrincipal()
         while current:
             Alert("procesando", f"Realizando suma de tuplas de: {current.name}")
             current_matrix: MainMatrix = current.matrix
-            current_matrix.group_similar()
+            signals_reduce.insert(current.name, current_matrix.group_similar())
             current = current.next_n
+        return signals_reduce

@@ -112,9 +112,10 @@ class Menu:
         # self.show_signals()
 
     def procces_file(self):
-        matrix_m = self.signals.get_minim()
+        matrix_m = self.signals.get_binary()
         # matrix_m.print_e()
-        matrix_m.proces_all_m()
+        signals_g: LinkedListPrincipal = matrix_m.create_groups()
+        signals_g.print_e()
 
     def show_student_data(self):
         self.titles(" Datos del Alumno")
