@@ -52,7 +52,8 @@ class LinkedListMatrix:
         current = self.first
         while current:
             if current.index == column:
-                current.value = new_value
+                if new_value != 0:
+                    current.value = new_value
                 break
             current = current.next_node
 
@@ -78,10 +79,24 @@ class LinkedListMatrix:
             current_value_comp = current_value_comp.next_node
         return True
 
-    def return_row(self):
+    def get_row(self):
         current = self.first
         row_copy = LinkedListMatrix()
         while current:
             row_copy.insert(current.index, current.value)
             current = current.next_node
         return row_copy
+
+    def __add__(self, other):
+        current = self.first
+        current_other = other.first
+        row = LinkedListMatrix()
+        i = 1
+        while current:
+            current.value += current_other.value
+            print(current.value)
+            row.insert(i, current.value)
+            i += 1
+            current = current.next_node
+            current_other = current_other.next_node
+        return row

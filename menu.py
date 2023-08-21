@@ -1,12 +1,14 @@
 from Alerts.customAlerts import Alert
 from read_files import Read
 from Nodes.linkedListP import LinkedListPrincipal
+from writeFile import Write
 import os
 
 
 class Menu:
     def __init__(self):
         self.signals = LinkedListPrincipal()
+        self.signals_g = LinkedListPrincipal()
 
     def menu(self):
         while True:
@@ -21,7 +23,7 @@ class Menu:
             elif option == "2":
                 self.procces_file()
             elif option == "3":
-                pass
+                self.create_XML()
             elif option == "4":
                 self.show_student_data()
             elif option == "5":
@@ -109,13 +111,27 @@ class Menu:
         read = Read()
         read.read_file(url)
         read.load_data(self.signals)
-        # self.show_signals()
+        self.show_signals()
 
     def procces_file(self):
+        self.titles(" Procesar Archivo")
         matrix_m = self.signals.get_binary()
         # matrix_m.print_e()
-        signals_g: LinkedListPrincipal = matrix_m.create_groups()
-        signals_g.print_e()
+        matrix_m.create_groups(self.signals, self.signals_g)
+        self.signals_g.print_e()
+
+    def create_XML(self):
+        self.titles(" Escribir Archivo de Salida")
+        url = input(" 📂 Ingrese la ruta del archivo, con nombre : ")
+        name, extension = os.path.splitext(url)
+        if url == "" or extension != ".xml":
+            print(" ")
+            Alert("error", "Ingrese una ruta válida")
+            return
+        print()
+        url = url.replace("\\", "/")
+        w = Write(url)
+        w.write_document(self.signals_g)
 
     def show_student_data(self):
         self.titles(" Datos del Alumno")

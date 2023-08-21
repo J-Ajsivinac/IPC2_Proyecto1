@@ -72,15 +72,34 @@ class MainMatrix:
         return matrix_ret
         # self.group_similar(matrix_b=)
 
-    def group_similar(self):
+    def search_row(self, index):
+        current = self.rows.first
+        while current:
+            if current.index == index:
+                break
+            current = current.next_node
+        return current.value
+
+    def get_row_add(self, row):
         current_row = self.rows.first
+        for _ in range(row - 1):
+            # current_row contiene la fila a la cual le debemos cambiar el valor
+            current_row = current_row.next_node
+        return current_row
+
+    def group_similar(self, matrix_original):
+        current_row = self.rows.first
+        current_row_matrix = matrix_original.rows.first
         matrix_reduce = LinkedListReduce()
 
         for i in range(1, self.r + 1):
             if not current_row:
                 continue
             comp_row = current_row.next_node
-            row_temp = current_row.value.return_row()
+            row_temp = matrix_original.search_row(current_row.index)
+
+            # print(row_temp)  # linkedlistMatrix
+            # print(f"comp {comp_row.value}")  # matrix node
             times = f"{i}"
             name_group = f"g={i}"
             for _ in range(i + 1, self.r + 1):
@@ -91,6 +110,8 @@ class MainMatrix:
 
                 if current_row.value == comp_row.value:
                     times += f",{comp_row.index}"
+                    row_temp += matrix_original.search_row(comp_row.index)
+                    # print(matrix_original.search_row(comp_row.index))
                     temp = comp_row.next_node
                     self.rows.delete_row(comp_row.index)
 
@@ -101,6 +122,7 @@ class MainMatrix:
 
             matrix_reduce.insert(name_group, times, row_temp)
             temp2 = current_row.next_node
+            current_row_matrix = current_row_matrix.next_node
             self.rows.delete_row(current_row.index)
             current_row = temp2
 

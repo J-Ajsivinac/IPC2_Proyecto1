@@ -80,12 +80,15 @@ class LinkedListPrincipal:
         return cloned_list
         # self.proces_all_m(cloned_list)
 
-    def create_groups(self):
+    def create_groups(self, matrix_o, all_groups):
         current = self.first
-        signals_reduce = LinkedListPrincipal()
+        current_o = matrix_o.first
         while current:
             Alert("procesando", f"Realizando suma de tuplas de: {current.name}")
             current_matrix: MainMatrix = current.matrix
-            signals_reduce.insert(current.name, current_matrix.group_similar())
+            original_matrix: MainMatrix = current_o.matrix
+            all_groups.insert(
+                current.name, current_matrix.group_similar(original_matrix)
+            )
             current = current.next_n
-        return signals_reduce
+            current_o = current_o.next_n
