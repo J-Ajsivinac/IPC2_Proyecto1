@@ -80,15 +80,26 @@ class LinkedListPrincipal:
         return cloned_list
         # self.proces_all_m(cloned_list)
 
-    def create_groups(self, matrix_o, all_groups):
+    def create_groups(self, data_o, all_groups):
         current = self.first
-        current_o = matrix_o.first
+        current_o = data_o.first
         while current:
+            if current_o.processed:
+                current = current.next_n
+                current_o = current_o.next_n
+                continue
             Alert("procesando", f"Realizando suma de tuplas de: {current.name}")
             current_matrix: MainMatrix = current.matrix
             original_matrix: MainMatrix = current_o.matrix
-            all_groups.insert(
-                current.name, current_matrix.group_similar(original_matrix)
-            )
+
+            matrix_group = current_matrix.group_similar(original_matrix)
+
+            if all_groups.verify_dup(current_o.name, matrix_group):
+                # print(f"Se repitio {current_o.name}")
+                Alert("advertencia", f"Se sobreescribió la señal: {current_o.name}")
+            else:
+                all_groups.insert(current.name, matrix_group)
+
+            current_o.processed = True
             current = current.next_n
             current_o = current_o.next_n

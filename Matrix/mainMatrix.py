@@ -91,7 +91,6 @@ class MainMatrix:
         current_row = self.rows.first
         current_row_matrix = matrix_original.rows.first
         matrix_reduce = LinkedListReduce()
-
         for i in range(1, self.r + 1):
             if not current_row:
                 continue

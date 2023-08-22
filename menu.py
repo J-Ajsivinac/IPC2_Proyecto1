@@ -114,6 +114,9 @@ class Menu:
         self.show_signals()
 
     def procces_file(self):
+        if self.signals.size == 0:
+            Alert("error", "No hay datos cargados")
+            return
         self.titles(" Procesar Archivo")
         matrix_m = self.signals.get_binary()
         # matrix_m.print_e()

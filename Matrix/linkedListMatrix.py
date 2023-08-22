@@ -94,7 +94,6 @@ class LinkedListMatrix:
         i = 1
         while current:
             current.value += current_other.value
-            print(current.value)
             row.insert(i, current.value)
             i += 1
             current = current.next_node
