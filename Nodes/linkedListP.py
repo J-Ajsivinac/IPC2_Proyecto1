@@ -70,6 +70,9 @@ class LinkedListPrincipal:
         cloned_list = LinkedListPrincipal()
         current_data = self.first
         while current_data:
+            if current_data.processed:
+                current_data = current_data.next_n
+                continue
             Alert("procesando", f"Calculando la matriz binaria de: {current_data.name}")
             current_matrix = current_data.matrix
             # llamada a la función m_patrons() para obtener la matriz con 1 y 0
@@ -95,7 +98,6 @@ class LinkedListPrincipal:
             matrix_group = current_matrix.group_similar(original_matrix)
 
             if all_groups.verify_dup(current_o.name, matrix_group):
-                # print(f"Se repitio {current_o.name}")
                 Alert("advertencia", f"Se sobreescribió la señal: {current_o.name}")
             else:
                 all_groups.insert(current.name, matrix_group)
@@ -103,3 +105,27 @@ class LinkedListPrincipal:
             current_o.processed = True
             current = current.next_n
             current_o = current_o.next_n
+
+    def create_elements_XML(self, ET, senalesReducidas):
+        current = self.first
+        while current:
+            current_matrix = current.matrix
+            senal = ET.SubElement(
+                senalesReducidas,
+                "senal",
+                nombre=f"{current.name}",
+                A=f"{current_matrix.c}",
+            )
+            current_row = current_matrix.rows.first
+            while current_row:
+                grupo = ET.SubElement(senal, "grupo", g=f"{current_row.group_name}")
+                ET.SubElement(grupo, "tiempos").text = f"{current_row.index}"
+                datosGrupo = ET.SubElement(grupo, "datosGrupo")
+                current_value = current_row.value.first
+                while current_value:
+                    ET.SubElement(
+                        datosGrupo, "dato", A=f"{current_value.index}"
+                    ).text = f"{current_value.value}"
+                    current_value = current_value.next_node
+                current_row = current_row.next_node
+            current = current.next_n

@@ -27,7 +27,7 @@ class Menu:
             elif option == "4":
                 self.show_student_data()
             elif option == "5":
-                pass
+                self.create_XML()
             elif option == "6":
                 pass
             elif option == "7":
@@ -122,10 +122,14 @@ class Menu:
         # matrix_m.print_e()
         matrix_m.create_groups(self.signals, self.signals_g)
         self.signals_g.print_e()
+        Alert("exito", "Datos Procesados")
 
     def create_XML(self):
+        if self.signals.size == 0:
+            Alert("error", "No hay datos cargados")
+            return
         self.titles(" Escribir Archivo de Salida")
-        url = input(" 📂 Ingrese la ruta del archivo, con nombre : ")
+        url = input(" 📂 Ingrese la ruta del archivo (con nombre) : ")
         name, extension = os.path.splitext(url)
         if url == "" or extension != ".xml":
             print(" ")
@@ -133,8 +137,10 @@ class Menu:
             return
         print()
         url = url.replace("\\", "/")
+        Alert("procesando", "Creando archivo de salida")
         w = Write(url)
         w.write_document(self.signals_g)
+        Alert("exito", "Archivo de Salida Creado/Actualizado")
 
     def show_student_data(self):
         self.titles(" Datos del Alumno")

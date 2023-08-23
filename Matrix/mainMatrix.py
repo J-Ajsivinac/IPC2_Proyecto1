@@ -100,7 +100,7 @@ class MainMatrix:
             # print(row_temp)  # linkedlistMatrix
             # print(f"comp {comp_row.value}")  # matrix node
             times = f"{i}"
-            name_group = f"g={i}"
+            name_group = f"{i}"
             for _ in range(i + 1, self.r + 1):
                 if not current_row or not comp_row:
                     continue
@@ -110,7 +110,6 @@ class MainMatrix:
                 if current_row.value == comp_row.value:
                     times += f",{comp_row.index}"
                     row_temp += matrix_original.search_row(comp_row.index)
-                    # print(matrix_original.search_row(comp_row.index))
                     temp = comp_row.next_node
                     self.rows.delete_row(comp_row.index)
 
