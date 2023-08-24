@@ -33,6 +33,8 @@ class Menu:
                 pass
             elif option == "7":
                 Alert("exito", "Cierre de Sesión")
+                self.show_signals()
+            elif option == "8":
                 break
             else:
                 Alert("error", "Opción Inválida")
@@ -166,7 +168,7 @@ class Menu:
         graph_entry = Graph(signal_select.name)
         graph_entry.create_original(signal_select.matrix)
 
-        if self.signals.size != 0:
+        if self.signals_g.size != 0:
             signal_g_select = self.signals_g.get_data_signal(signal_select.name)
             graph_groups = Graph(signal_select.name)
             graph_groups.create_reduced(signal_g_select.matrix)

@@ -78,7 +78,7 @@ class MainMatrix:
             if current.index == index:
                 break
             current = current.next_node
-        return current.value
+        return current.value.get_row()
 
     def get_row_add(self, row):
         current_row = self.rows.first
