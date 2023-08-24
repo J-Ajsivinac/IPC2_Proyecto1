@@ -2,6 +2,7 @@ from Alerts.customAlerts import Alert
 from read_files import Read
 from Nodes.linkedListP import LinkedListPrincipal
 from writeFile import Write
+from graph import Graph
 import os
 
 
@@ -27,7 +28,7 @@ class Menu:
             elif option == "4":
                 self.show_student_data()
             elif option == "5":
-                self.create_XML()
+                self.create_graph()
             elif option == "6":
                 pass
             elif option == "7":
@@ -89,6 +90,12 @@ class Menu:
         print(" ║")
         print(" ╚═══════════════════════════════════════════════════════╝\n")
 
+    def verfy_size(self):
+        if self.signals.size == 0:
+            Alert("error", "No hay datos cargados")
+            return True
+        return False
+
     def load_xml(self):
         self.titles(" Cargar Archivo")
         url = input(" 📂 Ingrese la ruta del Archivo: ")
@@ -114,20 +121,19 @@ class Menu:
         self.show_signals()
 
     def procces_file(self):
-        if self.signals.size == 0:
-            Alert("error", "No hay datos cargados")
+        if self.verfy_size():
             return
+
         self.titles(" Procesar Archivo")
         matrix_m = self.signals.get_binary()
-        # matrix_m.print_e()
         matrix_m.create_groups(self.signals, self.signals_g)
         self.signals_g.print_e()
         Alert("exito", "Datos Procesados")
 
     def create_XML(self):
-        if self.signals.size == 0:
-            Alert("error", "No hay datos cargados")
+        if self.verfy_size():
             return
+
         self.titles(" Escribir Archivo de Salida")
         url = input(" 📂 Ingrese la ruta del archivo (con nombre) : ")
         name, extension = os.path.splitext(url)
@@ -149,6 +155,21 @@ class Menu:
         print('\t 📚 Introducción a la Programación y computación 2 Sección "N"')
         print("\t 💻 Ingenieria en Ciencias y Sistemas")
         print("\t 📆 4to Semestre")
+
+    def create_graph(self):
+        if self.verfy_size():
+            return
+
+        self.titles(" Generar Gráfica")
+        signal_select = self.signals.select_signal()
+
+        graph_entry = Graph(signal_select.name)
+        graph_entry.create_original(signal_select.matrix)
+
+        if self.signals.size != 0:
+            signal_g_select = self.signals_g.get_data_signal(signal_select.name)
+            graph_groups = Graph(signal_select.name)
+            graph_groups.create_reduced(signal_g_select.matrix)
 
     def show_signals(self):
         self.signals.print_e()

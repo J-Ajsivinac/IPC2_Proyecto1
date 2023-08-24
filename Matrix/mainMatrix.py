@@ -91,6 +91,7 @@ class MainMatrix:
         current_row = self.rows.first
         current_row_matrix = matrix_original.rows.first
         matrix_reduce = LinkedListReduce()
+        temp_size = 0
         for i in range(1, self.r + 1):
             if not current_row:
                 continue
@@ -99,7 +100,7 @@ class MainMatrix:
 
             # print(row_temp)  # linkedlistMatrix
             # print(f"comp {comp_row.value}")  # matrix node
-            times = f"{i}"
+            times = f"{current_row.index}"
             name_group = f"{i}"
             for _ in range(i + 1, self.r + 1):
                 if not current_row or not comp_row:
@@ -123,8 +124,9 @@ class MainMatrix:
             current_row_matrix = current_row_matrix.next_node
             self.rows.delete_row(current_row.index)
             current_row = temp2
+            temp_size += 1
 
         matrix_ret = MainMatrix()
-        matrix_ret.create(matrix_reduce, self.r, self.c)
+        matrix_ret.create(matrix_reduce, temp_size, self.c)
 
         return matrix_ret

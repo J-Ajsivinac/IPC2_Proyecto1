@@ -1,6 +1,7 @@
 from Nodes.nodePrincipal import Node
 from Matrix.mainMatrix import MainMatrix
 from Alerts.customAlerts import Alert
+from graph import Graph
 
 
 class LinkedListPrincipal:
@@ -129,3 +130,44 @@ class LinkedListPrincipal:
                     current_value = current_value.next_node
                 current_row = current_row.next_node
             current = current.next_n
+
+    def print_names(self):
+        current = self.first
+        i = 1
+        print(" ")
+        print(" ╔════════════════════════════════════════════════╗")
+        print(" ║               Señales Disponibles              ║")
+        print(" ╠════════════════════════════════════════════════╣")
+
+        while current:
+            print(" ║", end="")
+            print(" %-46s" % f"{i}. {current.name}", end="")
+            print(" ║")
+            current = current.next_n
+            i += 1
+        print(" ╚════════════════════════════════════════════════╝\n")
+
+    def select_signal(self):
+        self.print_names()
+        option = input("Elija una señal (Ingrese el número): ")
+        if not option.isdigit():
+            Alert("error", "Ingrese solo enteros")
+            self.select_signal()
+
+        option = int(option)
+
+        if option < 1 or option > self.size:
+            Alert("error", "Opción fuera de rango")
+            self.select_signal()
+
+        current = self.first
+        for _ in range(1, option):
+            current = current.next_n
+
+        return current
+
+    def get_data_signal(self, name):
+        current = self.first
+        while current and current.name != name:
+            current = current.next_n
+        return current
