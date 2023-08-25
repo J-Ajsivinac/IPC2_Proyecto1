@@ -1,6 +1,7 @@
 from Matrix.linkedListMatrix import LinkedListMatrix
 from Alerts.customAlerts import Alert
 from Matrix.likedListReduce import LinkedListReduce
+import copy
 
 
 # clase que se encarga del manejo de la matriz

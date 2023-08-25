@@ -33,8 +33,6 @@ class Menu:
                 pass
             elif option == "7":
                 Alert("exito", "Cierre de Sesión")
-                self.show_signals()
-            elif option == "8":
                 break
             else:
                 Alert("error", "Opción Inválida")

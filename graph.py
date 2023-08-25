@@ -16,6 +16,7 @@ class Graph:
                 "color": "#cec9f1",
                 "style": "filled,rounded",
             },
+            format="svg",
         )
         # self.dot.attr(dpi="500")
 
@@ -33,7 +34,7 @@ class Graph:
 
         current_row = matrix.rows.first
 
-        with self.dot.subgraph(name="cluster") as c:
+        with self.dot.subgraph(name="cluster_1") as c:
             c.attr(style="rounded", color="#9d9bca", bgcolor="#eef1fa")
             for i in range(1, matrix.r + 1):
                 current_data = current_row.value.first
@@ -43,8 +44,17 @@ class Graph:
                     if i > 1:
                         last_i = i - 1
                         c.edge(f"{last_i}{j}", f"{i}{j}", color="#7475ae")
+                    if j > 1 and i == 1:
+                        last_j = j - 1
+                        c.edge(
+                            f"{i}{last_j}", f"{i}{j}", color="#7475ae", style="invis"
+                        )
                     current_data = current_data.next_node
                 current_row = current_row.next_node
+            with c.subgraph() as s:
+                s.attr(rank="same")
+                for j in range(1, matrix.c + 1):
+                    s.node(f"1{j}")
 
         self.dot.edge("root", "time", color="#7580f9")
         self.dot.edge("root", "amplitude", color="#7580f9")
@@ -66,14 +76,15 @@ class Graph:
 
         current_row = matrix.rows.first
 
-        with self.dot.subgraph(name="cluster") as c:
+        with self.dot.subgraph(name="cluster_2") as c:
+            c.attr(style="rounded", color="#9d9bca", bgcolor="#eef1fa")
             for i in range(1, matrix.r + 1):
                 current_data = current_row.value.first
                 for j in range(matrix.c + 1):
                     if j == 0:
                         c.node(
                             f"{i}{j}",
-                            label=f"g={current_row.group_name} (t={current_row.index})",
+                            label=f"g={current_row.group_name}\n(t={current_row.index})",
                             group=f"{i}",
                         )
                     else:
@@ -81,15 +92,28 @@ class Graph:
                         current_data = current_data.next_node
                     if i > 1:
                         last_i = i - 1
-                        c.edge(f"{last_i}{j}", f"{i}{j}")
-
+                        c.edge(
+                            f"{last_i}{j}",
+                            f"{i}{j}",
+                            color="#7475ae",
+                        )
+                    if j > 0 and i == 1:
+                        last_j = j - 1
+                        c.edge(
+                            f"{i}{last_j}", f"{i}{j}", color="#7475ae", style="invis"
+                        )
                 current_row = current_row.next_node
 
-        self.dot.edge("root", "amplitude")
+            with c.subgraph() as s:
+                s.attr(rank="same")
+                for j in range(matrix.c + 1):
+                    s.node(f"1{j}")
+
+        self.dot.edge("root", "amplitude", color="#7580f9")
         for i in range(matrix.c + 1):
-            self.dot.edge("root", f"1{i}")
+            self.dot.edge("root", f"1{i}", color="#7580f9")
         self.generar("_reducida")
 
     def generar(self, n_reduce=""):
-        nombre = f"img/{self.signal_name}{n_reduce}.png".replace("\\", "/")
-        self.dot.render(outfile=nombre, format="png")
+        nombre = f"img/{self.signal_name}{n_reduce}.svg".replace("\\", "/")
+        self.dot.render(outfile=nombre, format="svg")
