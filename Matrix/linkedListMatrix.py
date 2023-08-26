@@ -99,3 +99,7 @@ class LinkedListMatrix:
             current = current.next_node
             current_other = current_other.next_node
         return row
+
+    def empty_list(self):
+        self.first = None
+        self.size = 0

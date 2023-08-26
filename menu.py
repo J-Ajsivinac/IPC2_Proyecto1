@@ -30,7 +30,7 @@ class Menu:
             elif option == "5":
                 self.create_graph()
             elif option == "6":
-                pass
+                self.restore()
             elif option == "7":
                 Alert("exito", "Cierre de Sesión")
                 break
@@ -170,6 +170,12 @@ class Menu:
             signal_g_select = self.signals_g.get_data_signal(signal_select.name)
             graph_groups = Graph(signal_select.name)
             graph_groups.create_reduced(signal_g_select.matrix)
+
+    def restore(self):
+        self.titles(" Inicializr Sistema")
+        self.signals.empty_list()
+        self.signals_g.empty_list()
+        Alert("exito", "Se inicializo el sistema")
 
     def show_signals(self):
         self.signals.print_e()

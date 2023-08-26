@@ -171,3 +171,7 @@ class LinkedListPrincipal:
         while current and current.name != name:
             current = current.next_n
         return current
+
+    def empty_list(self):
+        self.first = None
+        self.size = 0

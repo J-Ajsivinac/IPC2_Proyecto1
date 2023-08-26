@@ -21,3 +21,7 @@ class LinkedListReduce:
             current = current.next_node
         current.next_node = new_value
         self.size += 1
+
+    def empty_list(self):
+        self.first = None
+        self.size = 0

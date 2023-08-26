@@ -40,27 +40,27 @@ class Graph:
                 current_data = current_row.value.first
                 for j in range(1, matrix.c + 1):
                     print(current_data.value)
-                    c.node(f"{i}{j}", label=f"{current_data.value}", group=f"{i}")
+                    c.node(f"{i}_{j}", label=f"{current_data.value}", group=f"{i}")
                     if i > 1:
                         last_i = i - 1
-                        c.edge(f"{last_i}{j}", f"{i}{j}", color="#7475ae")
+                        c.edge(f"{last_i}_{j}", f"{i}_{j}", color="#7475ae")
                     if j > 1 and i == 1:
                         last_j = j - 1
                         c.edge(
-                            f"{i}{last_j}", f"{i}{j}", color="#7475ae", style="invis"
+                            f"{i}_{last_j}", f"{i}_{j}", color="#7475ae", style="invis"
                         )
                     current_data = current_data.next_node
                 current_row = current_row.next_node
             with c.subgraph() as s:
                 s.attr(rank="same")
                 for j in range(1, matrix.c + 1):
-                    s.node(f"1{j}")
+                    s.node(f"1_{j}")
 
         self.dot.edge("root", "time", color="#7580f9")
         self.dot.edge("root", "amplitude", color="#7580f9")
 
         for i in range(1, matrix.c + 1):
-            self.dot.edge("root", f"1{i}", color="#7580f9")
+            self.dot.edge("root", f"1_{i}", color="#7580f9")
         self.generar()
 
     # crear graficos para la matriz reducida
@@ -83,35 +83,35 @@ class Graph:
                 for j in range(matrix.c + 1):
                     if j == 0:
                         c.node(
-                            f"{i}{j}",
+                            f"{i}_{j}",
                             label=f"g={current_row.group_name}\n(t={current_row.index})",
                             group=f"{i}",
                         )
                     else:
-                        c.node(f"{i}{j}", label=f"{current_data.value}", group=f"{i}")
+                        c.node(f"{i}_{j}", label=f"{current_data.value}", group=f"{i}")
                         current_data = current_data.next_node
                     if i > 1:
                         last_i = i - 1
                         c.edge(
-                            f"{last_i}{j}",
-                            f"{i}{j}",
+                            f"{last_i}_{j}",
+                            f"{i}_{j}",
                             color="#7475ae",
                         )
                     if j > 0 and i == 1:
                         last_j = j - 1
                         c.edge(
-                            f"{i}{last_j}", f"{i}{j}", color="#7475ae", style="invis"
+                            f"{i}_{last_j}", f"{i}_{j}", color="#7475ae", style="invis"
                         )
                 current_row = current_row.next_node
 
             with c.subgraph() as s:
                 s.attr(rank="same")
                 for j in range(matrix.c + 1):
-                    s.node(f"1{j}")
+                    s.node(f"1_{j}")
 
         self.dot.edge("root", "amplitude", color="#7580f9")
         for i in range(matrix.c + 1):
-            self.dot.edge("root", f"1{i}", color="#7580f9")
+            self.dot.edge("root", f"1_{i}", color="#7580f9")
         self.generar("_reducida")
 
     def generar(self, n_reduce=""):
