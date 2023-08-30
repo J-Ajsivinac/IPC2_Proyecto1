@@ -99,7 +99,7 @@ class Menu:
     def load_xml(self):
         self.titles(" Cargar Archivo")
         url = input(" 📂 Ingrese la ruta del Archivo: ")
-        name, extension = os.path.splitext(url)
+        _, extension = os.path.splitext(url)
         # verificación de que la ruta sea válida
         # No cadena vacia o elementos distintos a los .xml
         if url == "" or extension != ".xml":
@@ -118,7 +118,7 @@ class Menu:
         read = Read()
         read.read_file(url)
         read.load_data(self.signals)
-        self.show_signals()
+        # self.show_signals()
 
     def procces_file(self):
         if self.verfy_size():
@@ -127,7 +127,7 @@ class Menu:
         self.titles(" Procesar Archivo")
         matrix_m = self.signals.get_binary()
         matrix_m.create_groups(self.signals, self.signals_g)
-        self.signals_g.print_e()
+        # self.signals_g.print_e()
         Alert("exito", "Datos Procesados")
 
     def create_XML(self):
@@ -162,14 +162,19 @@ class Menu:
 
         self.titles(" Generar Gráfica")
         signal_select = self.signals.select_signal()
-
+        Alert("procesando", f"Generando gráfica de {signal_select.name}")
         graph_entry = Graph(signal_select.name)
         graph_entry.create_original(signal_select.matrix)
-
+        Alert("procesando", f"Gráfica de {signal_select.name} generada")
         if self.signals_g.size != 0:
+            Alert(
+                "procesando",
+                f"Generando gráfica reducida de {signal_select.name}",
+            )
             signal_g_select = self.signals_g.get_data_signal(signal_select.name)
             graph_groups = Graph(signal_select.name)
             graph_groups.create_reduced(signal_g_select.matrix)
+            Alert("procesando", f"Gráfica reducida de {signal_select.name} generada")
 
     def restore(self):
         self.titles(" Inicializr Sistema")

@@ -1,5 +1,4 @@
 import graphviz
-from Nodes.nodePrincipal import Node
 from Matrix.mainMatrix import MainMatrix
 
 
@@ -39,7 +38,6 @@ class Graph:
             for i in range(1, matrix.r + 1):
                 current_data = current_row.value.first
                 for j in range(1, matrix.c + 1):
-                    print(current_data.value)
                     c.node(f"{i}_{j}", label=f"{current_data.value}", group=f"{i}")
                     if i > 1:
                         last_i = i - 1
