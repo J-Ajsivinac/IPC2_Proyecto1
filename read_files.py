@@ -55,6 +55,8 @@ class Read:
                 all_data.insert(name_temp, matrix_temp)
             # se recorre los elementos de la etiqueta senal, para cambiar los valores ceros iniciales
             for data in frecuency.findall("dato"):
+                if data.text is None:
+                    continue
                 if (
                     not data.text.isdigit()
                     or not data.get("t").isdigit()

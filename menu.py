@@ -135,7 +135,7 @@ class Menu:
             return
 
         self.titles(" Escribir Archivo de Salida")
-        url = input(" 📂 Ingrese la ruta del archivo (con nombre) : ")
+        url = input(" 📂 Ingrese la ruta de destino, junto con el nombre y extensión : ")
         name, extension = os.path.splitext(url)
         if url == "" or extension != ".xml":
             print(" ")
@@ -165,7 +165,7 @@ class Menu:
         Alert("procesando", f"Generando gráfica de {signal_select.name}")
         graph_entry = Graph(signal_select.name)
         graph_entry.create_original(signal_select.matrix)
-        Alert("procesando", f"Gráfica de {signal_select.name} generada")
+
         if self.signals_g.size != 0:
             Alert(
                 "procesando",
@@ -174,7 +174,6 @@ class Menu:
             signal_g_select = self.signals_g.get_data_signal(signal_select.name)
             graph_groups = Graph(signal_select.name)
             graph_groups.create_reduced(signal_g_select.matrix)
-            Alert("procesando", f"Gráfica reducida de {signal_select.name} generada")
 
     def restore(self):
         self.titles(" Inicializr Sistema")

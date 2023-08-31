@@ -135,30 +135,42 @@ class LinkedListPrincipal:
         current = self.first
         i = 1
         print(" ")
-        print(" ╔════════════════════════════════════════════════╗")
-        print(" ║               Señales Disponibles              ║")
-        print(" ╠════════════════════════════════════════════════╣")
+        print(" ╔════════════════════════════════════════════════╦════════════════╗")
+        print(" ║               Señales Disponibles              ║     Estado     ║")
+        print(" ╠════════════════════════════════════════════════╬════════════════╣")
 
         while current:
             print(" ║", end="")
             print(" %-46s" % f"{i}. {current.name}", end="")
-            print(" ║")
+            print(" ║", end="")
+            state = "Procesado" if current.processed else "No Procesado"
+            print(" %-15s" % f"{state}", end="")
+            print("║")
             current = current.next_n
             i += 1
-        print(" ╚════════════════════════════════════════════════╝\n")
+        print(" ╚════════════════════════════════════════════════╩════════════════╝\n")
+        Alert(
+            "advertencia",
+            "Las imagenes que no se han procesado no generarán gráficas reducidas",
+        )
+        print("")
 
     def select_signal(self):
-        self.print_names()
-        option = input("Elija una señal (Ingrese el número): ")
-        if not option.isdigit():
-            Alert("error", "Ingrese solo enteros")
-            self.select_signal()
+        option = ""
+        while True:
+            self.print_names()
+            option = input("Elija una señal (Ingrese el número): ")
 
-        option = int(option)
+            if not option.isdigit():
+                Alert("error", "Ingrese solo enteros")
+                continue
 
-        if option < 1 or option > self.size:
-            Alert("error", "Opción fuera de rango")
-            self.select_signal()
+            option = int(option)
+
+            if option < 1 or option > self.size:
+                Alert("error", "Opción fuera de rango")
+                continue
+            break
 
         current = self.first
         for _ in range(1, option):

@@ -1,5 +1,6 @@
 import graphviz
 from Matrix.mainMatrix import MainMatrix
+from Alerts.customAlerts import Alert
 
 
 class Graph:
@@ -59,7 +60,9 @@ class Graph:
 
         for i in range(1, matrix.c + 1):
             self.dot.edge("root", f"1_{i}", color="#7580f9")
-        self.generar()
+        value_r = self.generar()
+        if value_r:
+            Alert("exito", f"Gráfica de '{self.signal_name}' generada")
 
     # crear graficos para la matriz reducida
     def create_reduced(self, matrix: MainMatrix):
@@ -110,8 +113,16 @@ class Graph:
         self.dot.edge("root", "amplitude", color="#7580f9")
         for i in range(matrix.c + 1):
             self.dot.edge("root", f"1_{i}", color="#7580f9")
-        self.generar("_reducida")
+        value_r = self.generar("_reducida")
+        if value_r:
+            Alert("exito", f"Gráfica de '{self.signal_name}' generada")
 
     def generar(self, n_reduce=""):
         nombre = f"img/{self.signal_name}{n_reduce}.svg".replace("\\", "/")
-        self.dot.render(outfile=nombre, format="svg")
+        try:
+            self.dot.render(outfile=nombre, format="svg")
+        except Exception as exce:
+            Alert("error", "En la generación de la gráfica")
+            print(exce)
+            return False
+        return True
