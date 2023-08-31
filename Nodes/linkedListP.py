@@ -72,6 +72,7 @@ class LinkedListPrincipal:
         current_data = self.first
         while current_data:
             if current_data.processed:
+                cloned_list.insert(current_data.name, current_data.matrix)
                 current_data = current_data.next_n
                 continue
             Alert("procesando", f"Calculando la matriz binaria de: {current_data.name}")
@@ -85,14 +86,14 @@ class LinkedListPrincipal:
         # self.proces_all_m(cloned_list)
 
     def create_groups(self, data_o, all_groups):
-        current = self.first
-        current_o = data_o.first
+        current = self.first  # matriz binaria
+        current_o = data_o.first  # matriz con datos original
         while current:
             if current_o.processed:
                 current = current.next_n
                 current_o = current_o.next_n
                 continue
-            Alert("procesando", f"Realizando suma de tuplas de: {current.name}")
+            Alert("procesando", f"Realizando suma de tuplas de: {current_o.name}")
             current_matrix: MainMatrix = current.matrix
             original_matrix: MainMatrix = current_o.matrix
 

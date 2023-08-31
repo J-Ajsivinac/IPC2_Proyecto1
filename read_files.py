@@ -18,7 +18,7 @@ class Read:
             if not frecuency.get("t").isdigit() or not frecuency.get("A").isdigit():
                 Alert(
                     "error",
-                    f"No se puede agregar la señal {name_temp}, porque el parámetro t o A no son enteros",
+                    f"No se puede agregar la señal {name_temp}, porque el parámetro t o A no es válido",
                 )
                 continue
 

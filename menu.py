@@ -118,25 +118,29 @@ class Menu:
         read = Read()
         read.read_file(url)
         read.load_data(self.signals)
-        # self.show_signals()
 
     def procces_file(self):
         if self.verfy_size():
             return
 
         self.titles(" Procesar Archivo")
+        # obteniendo Matriz Binaria
         matrix_m = self.signals.get_binary()
+        # crear grupos
         matrix_m.create_groups(self.signals, self.signals_g)
-        # self.signals_g.print_e()
         Alert("exito", "Datos Procesados")
 
     def create_XML(self):
         if self.verfy_size():
             return
 
+        if self.signals_g.size == 0:
+            Alert("error", "No hay datos procesados")
+            return
+
         self.titles(" Escribir Archivo de Salida")
         url = input(" 📂 Ingrese la ruta de destino, junto con el nombre y extensión : ")
-        name, extension = os.path.splitext(url)
+        _, extension = os.path.splitext(url)
         if url == "" or extension != ".xml":
             print(" ")
             Alert("error", "Ingrese una ruta válida")
@@ -161,15 +165,16 @@ class Menu:
             return
 
         self.titles(" Generar Gráfica")
+
         signal_select = self.signals.select_signal()
-        Alert("procesando", f"Generando gráfica de {signal_select.name}")
+        Alert("procesando", f"Generando gráfica de: {signal_select.name}")
         graph_entry = Graph(signal_select.name)
         graph_entry.create_original(signal_select.matrix)
 
-        if self.signals_g.size != 0:
+        if signal_select.processed:
             Alert(
                 "procesando",
-                f"Generando gráfica reducida de {signal_select.name}",
+                f"Generando gráfica reducida de: {signal_select.name}",
             )
             signal_g_select = self.signals_g.get_data_signal(signal_select.name)
             graph_groups = Graph(signal_select.name)

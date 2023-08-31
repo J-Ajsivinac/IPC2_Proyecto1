@@ -115,7 +115,7 @@ class Graph:
             self.dot.edge("root", f"1_{i}", color="#7580f9")
         value_r = self.generar("_reducida")
         if value_r:
-            Alert("exito", f"Gráfica de '{self.signal_name}' generada")
+            Alert("exito", f"Gráfica reducida de '{self.signal_name}' generada")
 
     def generar(self, n_reduce=""):
         nombre = f"img/{self.signal_name}{n_reduce}.svg".replace("\\", "/")

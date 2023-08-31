@@ -99,8 +99,6 @@ class MainMatrix:
             comp_row = current_row.next_node
             row_temp = matrix_original.search_row(current_row.index)
 
-            # print(row_temp)  # linkedlistMatrix
-            # print(f"comp {comp_row.value}")  # matrix node
             times = f"{current_row.index}"
             name_group = f"{i}"
             for _ in range(i + 1, self.r + 1):
