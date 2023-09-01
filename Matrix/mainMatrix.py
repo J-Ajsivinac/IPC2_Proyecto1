@@ -108,9 +108,11 @@ class MainMatrix:
                 temp = None
 
                 if current_row.value == comp_row.value:
+                    # concatenando y sumando
                     times += f",{comp_row.index}"
                     row_temp += matrix_original.search_row(comp_row.index)
                     temp = comp_row.next_node
+                    # eliminar fila
                     self.rows.delete_row(comp_row.index)
 
                 if not comp_row.next_node:

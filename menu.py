@@ -112,7 +112,7 @@ class Menu:
             print(" ")
             Alert(
                 "error",
-                f"No se encontro ningún archivo con el nombre {os.path.basename(url)}",
+                f"No se encontro ningún archivo con el nombre {os.path.basename(url)} en la ruta ingresada",
             )
             return
         read = Read()

@@ -6,12 +6,13 @@ from Alerts.customAlerts import Alert
 class Graph:
     def __init__(self, signal_name):
         self.signal_name = signal_name
+        # Configuración inicial del gráfico
         self.dot = graphviz.Digraph(
             f"{signal_name}",
             filename=f"{signal_name}.gv",
             node_attr={
                 "shape": "box",
-                "fontname": "Helvetica",
+                "fontname": "Verdana",
                 "fillcolor": "#ffffff",
                 "color": "#cec9f1",
                 "style": "filled,rounded",
@@ -40,9 +41,11 @@ class Graph:
                 current_data = current_row.value.first
                 for j in range(1, matrix.c + 1):
                     c.node(f"{i}_{j}", label=f"{current_data.value}", group=f"{i}")
+                    # enlazar al valor anterior si no es la primer fial
                     if i > 1:
                         last_i = i - 1
                         c.edge(f"{last_i}_{j}", f"{i}_{j}", color="#7475ae")
+                    # enlazar nodos de forma horizontal para llevar un orden
                     if j > 1 and i == 1:
                         last_j = j - 1
                         c.edge(
@@ -50,6 +53,7 @@ class Graph:
                         )
                     current_data = current_data.next_node
                 current_row = current_row.next_node
+            # Ordenando elementos con el mismo rango (Fila)
             with c.subgraph() as s:
                 s.attr(rank="same")
                 for j in range(1, matrix.c + 1):
@@ -58,6 +62,7 @@ class Graph:
         self.dot.edge("root", "time", color="#7580f9")
         self.dot.edge("root", "amplitude", color="#7580f9")
 
+        # enlazando la primer fila con el nodo que contiene el nombre de la señal
         for i in range(1, matrix.c + 1):
             self.dot.edge("root", f"1_{i}", color="#7580f9")
         value_r = self.generar()
@@ -82,6 +87,7 @@ class Graph:
             for i in range(1, matrix.r + 1):
                 current_data = current_row.value.first
                 for j in range(matrix.c + 1):
+                    # Imprimir la información del grupo
                     if j == 0:
                         c.node(
                             f"{i}_{j}",
@@ -91,6 +97,7 @@ class Graph:
                     else:
                         c.node(f"{i}_{j}", label=f"{current_data.value}", group=f"{i}")
                         current_data = current_data.next_node
+                    # enlazar los elementos que no sean los primeros
                     if i > 1:
                         last_i = i - 1
                         c.edge(
@@ -98,6 +105,7 @@ class Graph:
                             f"{i}_{j}",
                             color="#7475ae",
                         )
+                    # enlazando horizontalmente a los nodos
                     if j > 0 and i == 1:
                         last_j = j - 1
                         c.edge(

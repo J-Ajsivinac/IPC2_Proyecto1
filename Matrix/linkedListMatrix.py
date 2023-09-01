@@ -69,6 +69,7 @@ class LinkedListMatrix:
             original = original.next_node
         return clone
 
+    # funcion para comparar dos valores de tipo linkedListMatrix
     def __eq__(self, value_comp):
         current = self.first
         current_value_comp = value_comp.first
@@ -87,6 +88,7 @@ class LinkedListMatrix:
             current = current.next_node
         return row_copy
 
+    # función para concatenar dos objetos de tipo linkedListMatrix
     def __add__(self, other):
         current = self.first
         current_other = other.first
