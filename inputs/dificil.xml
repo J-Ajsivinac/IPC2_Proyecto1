@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<senales>
+   <senal nombre="Dificil" t="36" A="130">
+      <dato t="11" A="10">3</dato>
+      <dato t="11" A="20">8</dato>
+      <dato t="11" A="30">3</dato>
+      <dato t="11" A="40">7</dato>
+      <dato t="11" A="50">0</dato>
+      <dato t="30" A="10">5</dato>
+      <dato t="30" A="20">4</dato>
+      <dato t="30" A="30">4</dato>
+      <dato t="30" A="40">2</dato>
+      <dato t="30" A="50">6</dato>
+      <dato t="6" A="10">7</dato>
+      <dato t="6" A="20">2</dato>
+      <dato t="6" A="30">7</dato>
+      <dato t="6" A="40">4</dato>
+      <dato t="6" A="50">3</dato>
+      <dato t="20" A="10">3</dato>
+      <dato t="20" A="20">4</dato>
+      <dato t="20" A="30">4</dato>
+      <dato t="20" A="40">4</dato>
+      <dato t="20" A="50">0</dato>
+      <dato t="37" A="10">5</dato>
+      <dato t="11" A="131">7</dato>
+      <dato t="6" A="10">1000</dato>
+   </senal>
+</senales>
